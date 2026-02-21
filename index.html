@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Doğum günü sürprizi">
+    <title>Sürpriz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- SVG icon sprites (hidden, referenced via <use>) -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+        <symbol id="icon-heart" viewBox="0 0 24 24">
+            <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                fill="currentColor" />
+        </symbol>
+        <symbol id="icon-profile" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4.5" fill="currentColor" opacity="0.85" />
+            <path d="M12 14c-5 0-8 2.5-8 5v1.5h16V19c0-2.5-3-5-8-5z" fill="currentColor" opacity="0.7" />
+        </symbol>
+        <symbol id="icon-calendar" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="3" fill="currentColor" opacity="0.2" />
+            <rect x="3" y="4" width="18" height="7" rx="3" fill="currentColor" opacity="0.6" />
+            <rect x="7" y="3" width="2" height="3" rx="1" fill="currentColor" />
+            <rect x="15" y="3" width="2" height="3" rx="1" fill="currentColor" />
+            <circle cx="8.5" cy="15.5" r="1.2" fill="currentColor" />
+            <circle cx="12" cy="15.5" r="1.2" fill="currentColor" />
+            <circle cx="15.5" cy="15.5" r="1.2" fill="currentColor" />
+            <circle cx="8.5" cy="19" r="1.2" fill="currentColor" />
+            <circle cx="12" cy="19" r="1.2" fill="currentColor" />
+        </symbol>
+        <symbol id="icon-letter" viewBox="0 0 24 24">
+            <rect x="2" y="5" width="20" height="14" rx="3" fill="currentColor" opacity="0.3" />
+            <path d="M2 7l10 6 10-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" />
+            <circle cx="12" cy="14" r="2.5" fill="currentColor" opacity="0.45" />
+        </symbol>
+        <symbol id="icon-cake" viewBox="0 0 24 24">
+            <rect x="4" y="12" width="16" height="9" rx="3" fill="currentColor" opacity="0.35" />
+            <rect x="6" y="9" width="12" height="5" rx="2" fill="currentColor" opacity="0.55" />
+            <rect x="11" y="4" width="2" height="5" rx="1" fill="currentColor" opacity="0.6" />
+            <ellipse cx="12" cy="3.5" rx="1.8" ry="1.5" fill="#fdd835" opacity="0.9" />
+        </symbol>
+        <symbol id="icon-sparkle" viewBox="0 0 24 24">
+            <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5z" fill="currentColor" />
+            <path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8z" fill="currentColor" opacity="0.6" />
+            <path d="M6 16l.5 1.5L8 18l-1.5.5L6 20l-.5-1.5L4 18l1.5-.5z" fill="currentColor" opacity="0.4" />
+        </symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+        </symbol>
+    </svg>
+
+    <!-- ============ PASSWORD PAGE ============ -->
+    <div id="password-page" class="page active">
+
+        <div class="floating-hearts" aria-hidden="true">
+            <span class="heart h1"><svg class="svg-icon heart-float-icon">
+                    <use href="#icon-heart" />
+                </svg></span>
+            <span class="heart h2"><svg class="svg-icon heart-float-icon">
+                    <use href="#icon-sparkle" />
+                </svg></span>
+            <span class="heart h3"><svg class="svg-icon heart-float-icon">
+                    <use href="#icon-heart" />
+                </svg></span>
+            <span class="heart h4"><svg class="svg-icon heart-float-icon">
+                    <use href="#icon-sparkle" />
+                </svg></span>
+            <span class="heart h5"><svg class="svg-icon heart-float-icon">
+                    <use href="#icon-heart" />
+                </svg></span>
+            <span class="heart h6"><svg class="svg-icon heart-float-icon">
+                    <use href="#icon-sparkle" />
+                </svg></span>
+        </div>
+
+        <div class="password-container">
+            <div class="profile-frame">
+                <img src="profile.webp" alt="Profil" id="profile-img">
+            </div>
+
+            <div class="password-right">
+                <p class="password-label">
+                    Şifreyi Gir
+                    <svg class="svg-icon label-heart">
+                        <use href="#icon-heart" />
+                    </svg>
+                </p>
+                <div id="password-display" class="password-dots">
+                    <span class="dot-slot">_</span>
+                    <span class="dot-slot">_</span>
+                    <span class="dot-slot">_</span>
+                    <span class="dot-slot">_</span>
+                </div>
+                <div id="error-msg" class="error-msg"></div>
+                <div class="numpad">
+                    <button class="num-btn" data-num="1">1</button>
+                    <button class="num-btn" data-num="2">2</button>
+                    <button class="num-btn" data-num="3">3</button>
+                    <button class="num-btn" data-num="4">4</button>
+                    <button class="num-btn" data-num="5">5</button>
+                    <button class="num-btn" data-num="6">6</button>
+                    <button class="num-btn" data-num="7">7</button>
+                    <button class="num-btn" data-num="8">8</button>
+                    <button class="num-btn" data-num="9">9</button>
+                    <button class="num-btn num-btn-wide" id="clear-btn" data-num="clear">Sil</button>
+                    <button class="num-btn" data-num="0">0</button>
+                    <button class="num-btn num-btn-wide" id="enter-btn" data-num="enter">Gir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ BIRTHDAY PAGE ============ -->
+    <div id="birthday-page" class="page">
+        <div class="birthday-top-bar">
+            <span class="birthday-title">
+                <svg class="svg-icon title-icon">
+                    <use href="#icon-cake" />
+                </svg>
+                İyiki Doğdun!
+                <svg class="svg-icon title-icon">
+                    <use href="#icon-cake" />
+                </svg>
+            </span>
+        </div>
+
+        <div class="confetti-container" id="confetti-container"></div>
+
+        <div class="birthday-content">
+            <div class="photo-card">
+                <img src="emir.png" alt="Doğum Günü" class="birthday-photo">
+                <div class="photo-overlay">
+                    <p class="overlay-line1">slm askim!</p>
+                    <p class="overlay-line2">İyi ki doğdun nice benli</p>
+                    <p class="overlay-line3">senelere seni çok seviyorum</p>
+                    <p class="overlay-line4">
+                        biliyosun zatenn
+                        <svg class="svg-icon inline-heart">
+                            <use href="#icon-heart" />
+                        </svg>
+                    </p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="action-btn" id="btn-profile" onclick="toggleSection('profile-section')">
+                    <span class="btn-icon"><svg class="svg-icon btn-svg-icon">
+                            <use href="#icon-profile" />
+                        </svg></span>
+                    <span>Profile</span>
+                </button>
+                <button class="action-btn" id="btn-1302" onclick="openModal('reel-modal')">
+                    <span class="btn-icon"><svg class="svg-icon btn-svg-icon">
+                            <use href="#icon-calendar" />
+                        </svg></span>
+                    <span>13.02</span>
+                </button>
+                <button class="action-btn" id="btn-benioku" onclick="openModal('letter-modal')">
+                    <span class="btn-icon"><svg class="svg-icon btn-svg-icon">
+                            <use href="#icon-letter" />
+                        </svg></span>
+                    <span>Beni Oku</span>
+                </button>
+            </div>
+
+            <!-- PROFILE SECTION (stays inline expandable) -->
+            <div id="profile-section" class="expandable-section">
+                <div class="profile-detail">
+                    <div class="profile-detail-img">
+                        <img src="emir.png" alt="Profil Detay">
+                    </div>
+                    <div class="profile-detail-text">
+                        <h2 class="detail-title">a little about u</h2>
+                        <p class="detail-body">Fotodaki kisi dünyanın en tatlı, en sirin adamıdır. Bazen fazla sapsal
+                            ama alosu onu öyle seviyo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ PHOTO REEL MODAL (drops from top) ============ -->
+    <div id="reel-modal" class="modal-overlay">
+        <div class="modal-backdrop" onclick="closeModal('reel-modal')"></div>
+        <div class="modal-scroll-container reel-scroll">
+            <button class="modal-close-btn" onclick="closeModal('reel-modal')">
+                <svg class="svg-icon close-icon">
+                    <use href="#icon-close" />
+                </svg>
+            </button>
+            <div class="modal-scroll-header">
+                <svg class="svg-icon header-icon">
+                    <use href="#icon-calendar" />
+                </svg>
+                Anılarımız
+                <svg class="svg-icon header-icon">
+                    <use href="#icon-heart" />
+                </svg>
+            </div>
+            <div class="photo-reel-modal">
+                <div class="reel-item-modal" style="--delay: 0">
+                    <img src="ani (1).webp" alt="Anı 1">
+                </div>
+                <div class="reel-item-modal" style="--delay: 1">
+                    <img src="ani (2).webp" alt="Anı 2">
+                </div>
+                <div class="reel-item-modal" style="--delay: 2">
+                    <img src="ani (3).webp" alt="Anı 3">
+                </div>
+                <div class="reel-item-modal" style="--delay: 3">
+                    <img src="ani (4).webp" alt="Anı 4">
+                </div>
+                <div class="reel-item-modal" style="--delay: 4">
+                    <img src="ani (5).webp" alt="Anı 5">
+                </div>
+                <div class="reel-item-modal" style="--delay: 5">
+                    <img src="ani (6).webp" alt="Anı 6">
+                </div>
+                <div class="reel-item-modal" style="--delay: 6">
+                    <img src="ani (7).webp" alt="Anı 7">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ LETTER MODAL (drops from top) ============ -->
+    <div id="letter-modal" class="modal-overlay">
+        <div class="modal-backdrop" onclick="closeModal('letter-modal')"></div>
+        <div class="modal-scroll-container letter-scroll">
+            <button class="modal-close-btn" onclick="closeModal('letter-modal')">
+                <svg class="svg-icon close-icon">
+                    <use href="#icon-close" />
+                </svg>
+            </button>
+
+            <div id="letter-envelope-modal" class="letter-envelope-inner">
+                <div class="envelope-icon">
+                    <svg viewBox="0 0 120 90" class="envelope-svg">
+                        <rect x="5" y="15" width="110" height="70" rx="6" fill="#f8c8dc" stroke="#e891b0"
+                            stroke-width="2" />
+                        <polygon points="5,15 60,55 115,15" fill="#fdd6e5" stroke="#e891b0" stroke-width="2" />
+                        <circle cx="60" cy="50" r="10" fill="#e891b0" opacity="0.5" />
+                        <path d="M56 47l4 3.5 4-3.5" stroke="#fff" stroke-width="1.5" fill="none"
+                            stroke-linecap="round" />
+                        <path d="M55 52h10" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <button class="read-btn" onclick="openPostcardModal()">Okumak için tıkla!</button>
+            </div>
+
+            <div id="postcard-view-modal" class="postcard-view-modal hidden">
+                <div class="postcard">
+                    <div class="postcard-left">
+                        <p class="postcard-text">Canim sevgilim dogum gunun kutlu olsun seni o kadar cok seviyorum ki
+                            cümleler kelimeler kifayetsiz kalir. Bu hayatta bana deger veren karsiliksiz seven biri
+                            varsa o da sensin, herhangi bir zorlukla sevmedin beni, beni ben oldugum icin kabul edip
+                            sevdin aynı sekilde bende seni o kadar çok seviyorum. Bana bu hayatta gerçek sevilmenin ne
+                            oldugunu ögrettin, seni sevmek bu hayatta aldigim en güzel zevk. Sana baktikca daha cok
+                            bakasim geliyo ve ömür boyu birine bakacaksam o sen ol istiyorum. DUNYANIN EN SIRIN BEBESII
+                            &lt;33</p>
+                    </div>
+                    <div class="postcard-divider"></div>
+                    <div class="postcard-right">
+                        <p class="postcard-to">Senin için,</p>
+                        <p class="postcard-from">Aleyna</p>
+                        <span class="postcard-heart">
+                            <svg class="svg-icon postcard-heart-icon">
+                                <use href="#icon-heart" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
